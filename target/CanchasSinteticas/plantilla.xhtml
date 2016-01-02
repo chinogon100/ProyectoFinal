@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<f:view contentType="text/html" id="fview">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Canchas Sinteticas</title>
+    <ui:debug />
+    <f:metadata>
+        <ui:insert name="metadata" />
+    </f:metadata>
+
+    <h:head>
+
+    
+    </h:head>
+
+    <h:body>
+    
+    	<p:layout fullPage="true" resizeTitle="resize" style="background-color:#FFFFFF;">
+        <p:layoutUnit position="north"  id="north" >
+            <ui:include src="header.xhtml" />
+        </p:layoutUnit>
+
+
+        <p:layoutUnit styleClass="layoutUnitCenter" position="center">
+                <ui:insert name="content" />
+    
+    			      	<h:form>            
+     
+    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+ 
+    <p:dialog header="Login" widgetVar="dlg" resizable="false">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="username" value="Usuario:" />
+            <p:inputText id="username" value="#{controlUsrAdm.nombreUsr}" required="true" label="username" />
+ 
+            <h:outputLabel for="password" value="Contraseña:" />
+            <p:password id="password" value="#{controlUsrAdm.clave1}" required="true" label="password" />
+ 
+ 
+ 
+            <f:facet name="footer">
+               	<p:commandButton value="Login" update="growl" action="#{controlUsuario.login(controlUsrAdm.nombreUsr,controlUsrAdm.clave1)}"
+                                 oncomplete="handleLoginRequest(xhr, status, args)" />
+            </f:facet>  
+        </h:panelGrid>
+    </p:dialog>
+</h:form>
+
+
+    
+    			      	<h:form>            
+     
+   <p:growl id="growl1" sticky="true" showDetail="true" life="3000" />
+    <p:dialog header="Nuevo Usuario" widgetVar="dlg1" resizable="false">
+        <h:panelGrid columns="2" cellpadding="5">
+            <p:outputLabel for="nombre" value="Nombres" />
+            <p:inputText id="nombre" value="#{controlUsrAdm.nombre}" required="true" label="username" />
+ 
+            <p:outputLabel for="usuario" value="Usuario:" />
+            <p:inputText id="usuario" value="#{controlUsrAdm.nombreUsr}" required="true" label="Usuario" />
+ 		
+ 		   <p:outputLabel for="feedback" value="Password:" />
+           <p:password id="feedback" value="#{controlUsrAdm.clave1}" required="true" feedback="true" />
+ 		
+         	<p:outputLabel for="feedback1" value="Password:" />
+           <p:password id="feedback1" value="#{controlUsrAdm.clave2}" required="true" feedback="true" />
+ 		
+         	
+         
+            <f:facet name="footer">
+                <p:commandButton value="Crear"  update="growl1" actionListener="#{controlUsrAdm.guardarUsuario()}"
+                               oncomplete="handleLoginRequest(xhr, status, args)" />
+            </f:facet>  
+        </h:panelGrid>
+    </p:dialog>
+</h:form>
+
+ 
+<script type="text/javascript">
+    function handleLoginRequest(xhr, status, args) {
+        if(args.validationFailed || !args.loggedIn) {
+            PF('dlg').jq.effect("shake", {times:5}, 100);
+        }
+        else {
+            PF('dlg').hide();
+            $('#loginLink').fadeOut();
+        }
+    }
+</script>
+    	
+ 
+    
+           
+        </p:layoutUnit>
+
+        <p:layoutUnit position="east" size="0" style="width:0px; display:none;" id="east">
+        </p:layoutUnit>
+
+        </p:layout>
+    	
+    
+    
+    </h:body>
+
+</f:view>
+</html>
